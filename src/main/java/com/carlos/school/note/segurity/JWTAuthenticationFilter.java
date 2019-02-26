@@ -58,6 +58,7 @@ public class JWTAuthenticationFilter extends  UsernamePasswordAuthenticationFilt
 	                                            Authentication auth) throws IOException, ServletException {
 	        String token = Jwts.builder()
 	                .setSubject(((User) auth.getPrincipal()).getUsername())
+	                .claim("IdRol", ((User) auth.getPrincipal()).getAuthorities())
 	                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 	                .signWith(SignatureAlgorithm.HS512, SECRET)
 	                .compact();
